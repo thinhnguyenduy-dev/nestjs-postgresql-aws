@@ -10,7 +10,6 @@ import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import apiClient from '@/lib/api-client';
-import { useDebounce } from '@/lib/hooks/use-debounce'; // Assuming we create this or use simple timeout
 
 interface Product {
   id: string;
