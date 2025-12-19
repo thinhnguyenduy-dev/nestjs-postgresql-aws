@@ -44,9 +44,39 @@ exports.AuthModule = AuthModule = __decorate([
             auth_service_1.AuthService,
             local_strategy_1.LocalStrategy,
             jwt_strategy_1.JwtStrategy,
-            google_strategy_1.GoogleStrategy,
-            facebook_strategy_1.FacebookStrategy,
-            microsoft_strategy_1.MicrosoftStrategy,
+            {
+                provide: 'GOOGLE_STRATEGY',
+                useFactory: (configService, authService) => {
+                    const clientID = configService.get('GOOGLE_CLIENT_ID');
+                    if (clientID && clientID !== '') {
+                        return new google_strategy_1.GoogleStrategy(configService, authService);
+                    }
+                    return null;
+                },
+                inject: [config_1.ConfigService, auth_service_1.AuthService],
+            },
+            {
+                provide: 'FACEBOOK_STRATEGY',
+                useFactory: (configService, authService) => {
+                    const appID = configService.get('FACEBOOK_APP_ID');
+                    if (appID && appID !== '') {
+                        return new facebook_strategy_1.FacebookStrategy(configService, authService);
+                    }
+                    return null;
+                },
+                inject: [config_1.ConfigService, auth_service_1.AuthService],
+            },
+            {
+                provide: 'MICROSOFT_STRATEGY',
+                useFactory: (configService, authService) => {
+                    const clientID = configService.get('MICROSOFT_CLIENT_ID');
+                    if (clientID && clientID !== '') {
+                        return new microsoft_strategy_1.MicrosoftStrategy(configService, authService);
+                    }
+                    return null;
+                },
+                inject: [config_1.ConfigService, auth_service_1.AuthService],
+            },
         ],
         exports: [auth_service_1.AuthService],
     })

@@ -32,9 +32,40 @@ import { MicrosoftStrategy } from './strategies/microsoft.strategy';
     AuthService,
     LocalStrategy,
     JwtStrategy,
-    GoogleStrategy,
-    FacebookStrategy,
-    MicrosoftStrategy,
+    // OAuth strategies - only if credentials are configured
+    {
+      provide: 'GOOGLE_STRATEGY',
+      useFactory: (configService: ConfigService, authService: AuthService) => {
+        const clientID = configService.get<string>('GOOGLE_CLIENT_ID');
+        if (clientID && clientID !== '') {
+          return new GoogleStrategy(configService, authService);
+        }
+        return null;
+      },
+      inject: [ConfigService, AuthService],
+    },
+    {
+      provide: 'FACEBOOK_STRATEGY',
+      useFactory: (configService: ConfigService, authService: AuthService) => {
+        const appID = configService.get<string>('FACEBOOK_APP_ID');
+        if (appID && appID !== '') {
+          return new FacebookStrategy(configService, authService);
+        }
+        return null;
+      },
+      inject: [ConfigService, AuthService],
+    },
+    {
+      provide: 'MICROSOFT_STRATEGY',
+      useFactory: (configService: ConfigService, authService: AuthService) => {
+        const clientID = configService.get<string>('MICROSOFT_CLIENT_ID');
+        if (clientID && clientID !== '') {
+          return new MicrosoftStrategy(configService, authService);
+        }
+        return null;
+      },
+      inject: [ConfigService, AuthService],
+    },
   ],
   exports: [AuthService],
 })
