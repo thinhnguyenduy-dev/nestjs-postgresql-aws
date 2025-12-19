@@ -32,55 +32,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
 
   const fetchProduct = async () => {
     try {
-      // In a real app, mock fetch from backend
-      // const response = await apiClient.get(`/products/${resolvedParams.id}`);
-      // setProduct(response.data);
-      
-      // Fallback mock data
-      // For simplicity, we just look up from a mock array matching the mocked listing page
-      const mockProducts = [
-        {
-            id: '1',
-            name: 'Premium Wireless Headphones',
-            description: 'Experience crystal clear sound with our premium wireless headphones. Featuring active noise cancellation, 30-hour battery life, and plush ear cushions for all-day comfort. Compatible with iOS and Android devices.',
-            price: 299.99,
-            image: '🎧',
-            category: 'Electronics',
-            stock: 10
-        },
-        {
-            id: '2',
-            name: 'Smart Watch Pro',
-            description: 'Stay connected and healthy with the Smart Watch Pro. Tracks heart rate, sleep, and workouts. Notifications for calls and texts directly on your wrist. Water-resistant up to 50 meters.',
-            price: 399.99,
-            image: '⌚',
-            category: 'Electronics',
-            stock: 5
-        },
-        // ... add others to match if needed, or generic fallback
-      ];
-
-      try {
-        const response = await apiClient.get(`/products/${resolvedParams.id}`);
-        setProduct(response.data);
-      } catch (e) {
-         // Find in mock or return a generic one if not found in mock list
-         const found = mockProducts.find(p => p.id === resolvedParams.id);
-         if (found) {
-            setProduct(found);
-         } else {
-             // Generic mock for any ID
-             setProduct({
-                 id: resolvedParams.id,
-                 name: `Product ${resolvedParams.id}`,
-                 description: 'This is a detailed description of the product. It is high quality and very useful for your daily life. Made with premium materials and designed to last.',
-                 price: 99.99,
-                 image: '📦',
-                 category: 'General',
-                 stock: 100
-             });
-         }
-      }
+      const response = await apiClient.get(`/products/${resolvedParams.id}`);
+      setProduct(response.data);
     } catch (error) {
       console.error('Error fetching product:', error);
     } finally {

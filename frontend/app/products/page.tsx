@@ -33,87 +33,14 @@ export default function ProductsPage() {
 
   const fetchProducts = async () => {
     try {
-      // In a real app, this would fetch from the backend
-      // const response = await apiClient.get('/products');
-      // setProducts(response.data);
-      
-      // For demo purposes, let's allow fetching but fallback to mock data if it fails (or if backend is empty)
-      try {
-        const response = await apiClient.get('/products');
-        if (response.data && response.data.length > 0) {
-          setProducts(response.data);
-        } else {
-            setMockData();
-        }
-      } catch (err) {
-        console.error("Failed to fetch products from API, using mock data", err);
-        setMockData();
-      }
+      const response = await apiClient.get('/products');
+      setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {
       setLoading(false);
     }
   };
-
-  const setMockData = () => {
-    setProducts([
-        {
-          id: '1',
-          name: 'Premium Wireless Headphones',
-          description: 'High-quality sound with noise cancellation technology.',
-          price: 299.99,
-          image: '🎧',
-          category: 'Electronics',
-          stock: 10
-        },
-        {
-          id: '2',
-          name: 'Smart Watch Pro',
-          description: 'Track your fitness and stay connected.',
-          price: 399.99,
-          image: '⌚',
-          category: 'Electronics',
-          stock: 5
-        },
-        {
-          id: '3',
-          name: 'Designer Backpack',
-          description: 'Stylish and durable backpack for daily use.',
-          price: 89.99,
-          image: '🎒',
-          category: 'Fashion',
-          stock: 20
-        },
-        {
-          id: '4',
-          name: 'Portable Speaker',
-          description: 'Powerful sound in a compact design.',
-          price: 149.99,
-          image: '🔊',
-          category: 'Electronics',
-          stock: 8
-        },
-        {
-            id: '5',
-            name: 'Running Shoes',
-            description: 'Comfortable and lightweight running shoes.',
-            price: 119.99,
-            image: '👟',
-            category: 'Fashion',
-            stock: 15
-        },
-        {
-            id: '6',
-            name: 'Coffee Maker',
-            description: 'Brew the perfect cup of coffee every morning.',
-            price: 79.99,
-            image: '☕',
-            category: 'Home',
-            stock: 12
-        }
-      ]);
-  }
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
