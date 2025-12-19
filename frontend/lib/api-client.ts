@@ -2,7 +2,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
+  // Use relative path '/api' to trigger Next.js Rewrite (proxy), solving Mixed Content issues
+  baseURL: '/api', 
   headers: {
     'Content-Type': 'application/json',
   },
