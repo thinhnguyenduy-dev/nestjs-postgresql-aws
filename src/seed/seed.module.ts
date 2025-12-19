@@ -23,7 +23,9 @@ import { OrderItem } from '../orders/entities/order-item.entity';
         database: configService.get<string>('DB_NAME'),
         entities: [User, Product, Order, OrderItem],
         synchronize: true,
-        // SSL config for production, simplified here since this is a script
+        ssl: {
+          rejectUnauthorized: false, // Required for RDS
+        },
       }),
       inject: [ConfigService],
     }),
