@@ -105,7 +105,7 @@ Go to **GitHub Repo -> Settings -> Secrets -> Actions** and add:
 | `DB_HOST` | RDS Endpoint (e.g., `shopping-db.xyz.us-east-1.rds.amazonaws.com`) |
 | `DB_USER` | `postgres` |
 | `DB_PASSWORD` | Your RDS password |
-| `DB_NAME` | `postgres` (default) |
+| `DB_NAME` | `postgres` (Default RDS database name. Do NOT set to identifiers like `shopping-db` unless you manually created it.) |
 
 ## 6. Deployment
 
