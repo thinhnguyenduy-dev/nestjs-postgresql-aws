@@ -12,9 +12,9 @@ export class MicrosoftStrategy extends PassportStrategy(Strategy, 'microsoft') {
     private authService: AuthService,
   ) {
     super({
-      clientID: configService.get<string>('MICROSOFT_CLIENT_ID'),
-      clientSecret: configService.get<string>('MICROSOFT_CLIENT_SECRET'),
-      callbackURL: configService.get<string>('MICROSOFT_CALLBACK_URL'),
+      clientID: configService.get<string>('MICROSOFT_CLIENT_ID') || 'disabled',
+      clientSecret: configService.get<string>('MICROSOFT_CLIENT_SECRET') || 'disabled',
+      callbackURL: configService.get<string>('MICROSOFT_CALLBACK_URL') || 'http://localhost:3000/auth/microsoft/callback',
       scope: ['user.read'],
     });
   }
