@@ -2,6 +2,13 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { User } from '../../users/entities/user.entity';
 import { OrderItem } from './order-item.entity';
 
+export enum OrderStatus {
+  PENDING = 'PENDING',
+  SHIPPED = 'SHIPPED',
+  DELIVERED = 'DELIVERED',
+  CANCELLED = 'CANCELLED',
+}
+
 @Entity('orders')
 export class Order {
   @PrimaryGeneratedColumn('uuid')
@@ -16,8 +23,12 @@ export class Order {
   @Column('decimal', { precision: 10, scale: 2 })
   totalAmount: number;
 
-  @Column({ default: 'PENDING' })
-  status: string;
+  @Column({
+    type: 'enum',
+    enum: OrderStatus,
+    default: OrderStatus.PENDING,
+  })
+  status: OrderStatus;
 
   @CreateDateColumn()
   createdAt: Date;
