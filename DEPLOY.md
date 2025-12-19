@@ -61,11 +61,20 @@ This guide explains how to deploy the Online Shopping Store to AWS using Free Ti
     ```bash
     sudo yum update -y
     sudo yum install docker -y
+    
+    # Install Docker Compose Plugin
+    sudo mkdir -p /usr/local/lib/docker/cli-plugins/
+    sudo curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o /usr/local/lib/docker/cli-plugins/docker-compose
+    sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+    
     sudo service docker start
     sudo usermod -a -G docker ec2-user
     # Log out and log back in to pick up group changes
     exit
     ssh -i "shopping-key.pem" ec2-user@<EC2-PUBLIC-IP>
+    
+    # Verify installation
+    docker compose version
     ```
 
 3.  **Install AWS CLI (if missing) & Configure**:
