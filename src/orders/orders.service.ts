@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { Order } from './entities/order.entity';
+import { Order, OrderStatus } from './entities/order.entity';
 import { OrderItem } from './entities/order-item.entity';
 import { User } from '../users/entities/user.entity';
 import { Product } from '../products/entities/product.entity';
@@ -37,12 +37,12 @@ export class OrdersService {
     // I'll skip Logic for fetching prices and just save relation.
     
     const order = this.ordersRepository.create({
-      user: { id: createOrderDto.userId }, // Reference by ID
-      status: 'PENDING',
+      user: { id: createOrderDto.userId } as any, // Cast to any to avoid recursive type check issues or partial type mismatch
+      status: OrderStatus.PENDING,
       totalAmount: 0 // Placeholder
     });
     
-    const savedOrder = await this.ordersRepository.save(order);
+    const savedOrder = await this.ordersRepository.save(order as Order);
 
     // Create items
     const items = createOrderDto.items.map(item => {
