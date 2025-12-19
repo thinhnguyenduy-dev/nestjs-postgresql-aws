@@ -25,9 +25,9 @@ import { AuthModule } from './auth/auth.module';
         database: configService.get<string>('DB_NAME'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true, // Auto-create tables (dev only)
-        ssl: {
-          rejectUnauthorized: false, // Required for RDS if not providing specific CA certs
-        },
+        ssl: configService.get('DB_SSL') === 'true' ? {
+          rejectUnauthorized: false,
+        } : false,
       }),
       inject: [ConfigService],
     }),
